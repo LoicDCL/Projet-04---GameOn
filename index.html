@@ -56,7 +56,7 @@
         <div class="content">
           <span class="close"></span>
           <div class="modal-body">
-            <form
+            <form id = "modal-form"
               name="reserve"
               action="index.html"
               method="get"
@@ -70,8 +70,10 @@
                   type="text"
                   id="first"
                   name="first"
-                  minlength="2"
                 /><br>
+                <label class = "error-first">
+                  Ce champ doit contenir deux caractères minimum.
+                </label>
               </div>
               <div
                 class="formData">
@@ -82,6 +84,9 @@
                   id="last"
                   name="last"
                 /><br>
+                <label class = "error-last">
+                  Ce champ doit contenir deux caractères minimum.
+                </label>
               </div>
               <div
                 class="formData">
@@ -92,6 +97,9 @@
                   id="email"
                   name="email"
                 /><br>
+                <label class = "error-email">
+                  Le format de l'adresse mail est incorrect.
+                </label>
               </div>
               <div
                 class="formData">
@@ -107,6 +115,9 @@
                 class="formData">
                 <label>À combien de tournois GameOn avez-vous déjà participé ?</label><br>
                 <input type="number" class="text-control" id="quantity" name="quantity" min="0" max="99">
+                <label class = "error-quantity">
+                  Une valeur numérique doit être saisie.
+                </label>
               </div>
               <p class="text-label">A quel tournoi souhaitez-vous participer cette année ?</p>
               <div
@@ -177,6 +188,9 @@
                   <span class="checkbox-icon"></span>
                   Portland</label
                 >
+                <label class = "error-checkbox-label">
+                  Vous devez sélectionner un tournoi.
+                </label>
               </div>
 
               <div

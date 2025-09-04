@@ -527,3 +527,13 @@ footer {
   }
 }
 
+.error-first,
+.error-last,
+.error-email,
+.error-quantity,
+.error-checkbox-label {
+  display: none;
+  color:#ff0000;
+  font-size: small;
+}
+
