@@ -183,6 +183,21 @@ main {
   padding-top: 10px;
 }
 
+.validation-content {
+  display: none;
+  margin: 5% auto;
+  width: 100%;
+  max-width: 500px;
+  animation-name: modalopen;
+  animation-duration: var(--modal-duration);
+  background: #232323;
+  border-radius: 10px;
+  overflow: hidden;
+  position: relative;
+  color: #fff;
+  padding-top: 10px;
+}
+
 .modal-body {
   padding: 15px 8%;
   margin: 15px auto;
@@ -322,6 +337,7 @@ input[data-error]::after {
   transform: rotate(-45deg);
 }
 .btn-submit,
+.btn-close,
 .btn-signup {
   background: #fe142f;
   display: block;
@@ -446,7 +462,8 @@ input[data-error]::after {
   margin-top: 57px;
   padding: 0;
 }
-.btn-signup {
+.btn-signup,
+.btn-close {
   outline: none;
   text-transform: capitalize;
   font-size: 1.3rem;
@@ -525,15 +542,5 @@ footer {
   to {
     opacity: 1;
   }
-}
-
-.error-first,
-.error-last,
-.error-email,
-.error-quantity,
-.error-checkbox-label {
-  display: none;
-  color:#ff0000;
-  font-size: small;
 }
 

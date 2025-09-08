@@ -21,98 +21,117 @@ function launchModal() {
 }
 
 
-// Fermeture de la modale
+// Fermeture de la modale + la validation
 // Déclaration variable fermeture
-const closeBtn = document.querySelector(".close");
+const closeBtns = document.querySelectorAll(".close");
 //Mise en place d'un Event Listener
-closeBtn.addEventListener("click", closeModal);
+closeBtns.forEach((btn) => {
+  btn.addEventListener("click", () => {
+    modalbg.style.display = "none";
+    document.querySelector(".content").style.display = "block";
+    document.querySelector(".validation-content").style.display = "none";
+  });
+});
+
 //fonction qui cache la modale
 function closeModal() {
   modalbg.style.display = "none";
 }
 
 
-// Message Erreur Champ 01
 // Blocage de l'event si condition non remplie
 document.getElementById("modal-form").addEventListener("submit", function(event){
-  // Variables Erreur Champs 01
-  const firstNameInput = document.getElementById("first");
-  const errorMessage = document.querySelector(".error-first");
-  const value = firstNameInput.value.trim();
+  let formIsValid = true;
+// Gestion erreur champ Prénom
+  // Déclaration des variables du champ prénom
+  const first = document.getElementById("first");
+  const firstData = first.parentElement;
   // Résultat selon conditions THEN - ELSE
-  if (value.length < 2) {
+  if (first.value.trim().length < 2) {
     event.preventDefault();
-    errorMessage.style.display = "inline";
+    firstData.setAttribute("data-error-visible", "true");
+    formIsValid = false;
   } else {
-    errorMessage.style.display = "none";
+    firstData.setAttribute("data-error-visible", "false");
   }
-});
 
-// Message Erreur Champ 02
-// Blocage de l'event si condition non remplie
-document.getElementById("modal-form").addEventListener("submit", function(event){
-  // Variables Erreur Champs 02
-  const lastNameInput = document.getElementById("last");
-  const errorMessage = document.querySelector(".error-last");
-  const value = lastNameInput.value.trim();
+// Gestion erreur champ nom
+  // Déclaration des variables du champ nom
+  const last = document.getElementById("last");
+  const lastData = last.parentElement;
   // Résultat selon conditions THEN - ELSE
-  if (value.length < 2) {
+  if (last.value.trim().length < 2) {
     event.preventDefault();
-    errorMessage.style.display = "inline";
+    lastData.setAttribute("data-error-visible", "true");
+    formIsValid = false;
   } else {
-    errorMessage.style.display = "none";
+    lastData.setAttribute("data-error-visible", "false");
   }
-});
 
-// Message Erreur Email non Valide
-// Blocage de l'event si condition non remplie
-document.getElementById("modal-form").addEventListener("submit", function(event){
-  // Variables Erreur Email
-  const emailInput = document.getElementById("email");
-  const errorMessage = document.querySelector(".error-email");
-  const emailValue = emailInput.value.trim();
+// Gestion erreur champ Email
+  // Déclaration des variables du champ Email
+  const email = document.getElementById("email");
+  const emailData = email.parentElement;
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  // Résultat selon conditions THEN - ELSE
-  if (!emailRegex.test(emailValue)) {
+  if (!emailRegex.test(email.value.trim())) {
     event.preventDefault();
-    errorMessage.style.display = "inline";
+    emailData.setAttribute("data-error-visible", "true");
+    formIsValid = false;
   } else {
-    errorMessage.style.display = "none";
+    emailData.setAttribute("data-error-visible", "false");
   }
-});
 
-// Message Erreur sur le nombre d'évènement fait
-// Blocage de l'event si condition non remplie
-document.getElementById("modal-form").addEventListener("submit", function(event){
-  // Variables Erreur quantité
-  const quantityInput = document.getElementById("quantity");
-  const errorMessage = document.querySelector(".error-quantity");
-  const value = quantityInput.value.trim();
-  // Résultat selon conditions THEN - ELSE
-  if (value ==="") {
+// Gestion erreur nombre évènements
+  // Déclaration des variables valeur numérique évènements
+  const quantity = document.getElementById("quantity");
+  const quantityData = quantity.parentElement;
+  if (quantity.value.trim() === "" || isNaN(quantity.value)) {
     event.preventDefault();
-    errorMessage.style.display = "inline";
+    quantityData.setAttribute("data-error-visible", "true");
+    formIsValid = false;
   } else {
-    errorMessage.style.display = "none";
+    quantityData.setAttribute("data-error-visible", "false");
   }
-});
 
-// Message Erreur sur la non selection checkbox
-// Blocage de l'event si condition non remplie
-document.getElementById("modal-form").addEventListener("submit", function(event){
+// Gestion erreur boutons radio location
+  // Déclaration des variables radio
+  const radios = document.getElementsByName("location");
+  const radioData = radios[0].closest(".formData");
+  let oneChecked = false;
+  Array.from(radios).forEach(r => { if (r.checked) oneChecked = true; });
+  if (!oneChecked) {
+    event.preventDefault();
+    radioData.setAttribute("data-error-visible", "true");
+    formIsValid = false;
+  } else {
+    radioData.setAttribute("data-error-visible", "false");
+  }
+
+// Message Erreur sur la non selection checkbox condition générales
   // Variables Erreur non selection
-  const checkboxes = document.getElementsByName("location");
-  const errorMessage = document.querySelector(".error-checkbox-label");
-  // Vérifie si au moins une est cochée
-  let atLeastOneChecked = false;
-  checkboxes.forEach(cb => {
-    if (cb.checked) atLeastOneChecked = true;
-  });
-  // Résultat selon conditions THEN - ELSE
-  if (!atLeastOneChecked) {
+  const checkbox1 = document.getElementById("checkbox1");
+  const checkboxData = checkbox1.closest(".formData");
+  if (!checkbox1.checked) {
     event.preventDefault();
-    errorMessage.style.display = "inline";
+    checkboxData.setAttribute("data-error-visible", "true");
+    formIsValid = false;
   } else {
-    errorMessage.style.display = "none";
+    checkboxData.setAttribute("data-error-visible", "false");
   }
+
+const formContent = document.querySelector(".content"); 
+const validationContent = document.querySelector(".validation-content");
+
+  if (formIsValid) {
+    event.preventDefault();
+    formContent.style.display = "none";
+    validationContent.style.display = "block";
+  }
+
+document.querySelector(".btn-close").addEventListener("click", () => {
+  modalbg.style.display = "none";
+  formContent.style.display = "block";
+  validationContent.style.display = "none";
+  });
+
 });
